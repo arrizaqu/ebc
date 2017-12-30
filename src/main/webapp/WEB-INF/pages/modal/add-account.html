@@ -1,0 +1,52 @@
+<!-- Modal -->
+<div class="modal fade" id="add-account-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add Account User</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="form-add-account" action="#">
+			  <div class="form-group">
+			    <label for="add.user.username">Username</label>
+			    <input data-parsley-required="true" type="email" name="add.user.username" class="form-control" id="username" aria-describedby="nameHelp" placeholder="Enter Your Username">
+			  </div>
+			  <div class="form-group">
+			    <label for="add.user.password">Password</label>
+			    <input data-parsley-required="true" type="password" name="add.user.password" class="form-control" id="add.user.password" aria-describedby="emailHelp" placeholder="Enter Your Password">
+			 </div>
+			  <div class="form-group">
+			    <label for="add.user.email">Email</label>
+			    <input data-parsley-required="true" type="email" name="add.user.email" class="form-control" id="add.user.email" aria-describedby="emailHelp" placeholder="Enter Your Email">
+			 </div>
+			  <div class="form-group">
+			    <label for="user.email">Status</label>
+			  	<div class="togglebutton">
+					<label>
+				    	<input id="add-statusUser" type="checkbox" >
+					</label>
+				</div>
+			  </div>
+			  <div class="form-group">
+			    <label for="add.listRoles">Role</label><br/>
+			    <select style="width: 100%;" name="add.roles" id="add-listRoles" multiple="multiple">
+		      		  <c:forEach var="role" items="${roles }">
+		      		  	<option value="${role.id}">
+		      		  		<c:out value='${role.roleName}' />
+		      		  	</option>
+		      		  </c:forEach>
+		      	</select>
+			  </div>
+			 
+		  </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" id="btn-add-account-submit" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

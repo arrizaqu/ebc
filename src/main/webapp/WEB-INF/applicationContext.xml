@@ -20,14 +20,12 @@
 	    <property name="password" value="pensil"/>
 	</bean> 
 	-->
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 	    <property name="driverClassName" value="org.postgresql.Driver" />
-	    <property name="url" value="jdbc:postgresql://ec2-184-72-228-128.compute-1.amazonaws.com:5432/
-d8gtbks0svv5uu" />
+	    <property name="url" value="jdbc:postgresql://ec2-184-72-228-128.compute-1.amazonaws.com:5432/d8gtbks0svv5uu" />
 	    <property name="username" value="wromkowfxzpbaa"/>
 	    <property name="password" value="8c37ad64e4a97fc7360cb9d31341d41fc4d2e0f805ff51a0fec37edf39068d79"/>
 	</bean>
-	
 	
 	<bean  class="org.springframework.orm.hibernate5.LocalSessionFactoryBean" 
 	id="sessionFactory">

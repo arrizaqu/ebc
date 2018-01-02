@@ -19,7 +19,7 @@ public class MateriService {
 	public List<Materi> getMateriByPage(int page, int pageSize) {
 		// TODO Auto-generated method stub
 		List<Materi> listMateri = materiDao.getMateriByPage(page, pageSize);
-		return null;
+		return listMateri;
 	}
 	
 	public int getCountMateri(){

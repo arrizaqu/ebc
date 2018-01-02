@@ -10,6 +10,8 @@ public class Main {
 	
 	@RequestMapping
 	public String index(){
+		
 		return "dashboard";
+		
 	}
 }

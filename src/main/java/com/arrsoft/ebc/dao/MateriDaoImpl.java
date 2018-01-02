@@ -43,4 +43,11 @@ public class MateriDaoImpl implements MateriDao{
 			return list;
 	}
 
+	public void save(Materi materi) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		session.save(materi);
+		session.flush();
+	}
+
 }

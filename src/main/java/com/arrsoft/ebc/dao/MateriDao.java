@@ -8,5 +8,6 @@ public interface MateriDao {
 
 	List<Materi> getMateriByPage(int page, int pageSize);
 	int getCountMateri();
+	void save(Materi materi);
 
 }

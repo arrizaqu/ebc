@@ -24,7 +24,11 @@ public class MateriService {
 	
 	public int getCountMateri(){
 		return materiDao.getCountMateri();
-	
+	}
+
+	public void save(Materi materi) {
+		// TODO Auto-generated method stub
+		materiDao.save(materi);
 	}
 
 }

@@ -1,0 +1,14 @@
+package com.arrsoft.ebc.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("/theme")
+public class ControllerTheme {
+
+	@RequestMapping
+	public String index(){
+		return "dashboard";
+	}
+}

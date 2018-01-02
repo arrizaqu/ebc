@@ -25,7 +25,7 @@ public class MateriController {
 	@Autowired
 	private MateriService materiService;
 	
-	@RequestMapping("/{page}")
+	@RequestMapping("get/{page}")
 	@ResponseBody
 	public List<Materi> index(@PathVariable int page){
 		RzPaginate<Materi> paginate= new RzPaginate();

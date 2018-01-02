@@ -13,18 +13,18 @@
 	<tx:annotation-driven/>
 	<!-- Datasource dataSource = new DataSource() -->
 	
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+	<!-- <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 	    <property name="driverClassName" value="org.postgresql.Driver" />
 	    <property name="url" value="jdbc:postgresql://localhost:5432/ebc-development" />
 	    <property name="username" value="postgres"/>
 	    <property name="password" value="pensil"/>
-	</bean> 
-	<!-- <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+	</bean>  -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 	    <property name="driverClassName" value="org.postgresql.Driver" />
 	    <property name="url" value="jdbc:postgresql://ec2-54-235-148-19.compute-1.amazonaws.com:5432/d8rdv1hh7elb43" />
 	    <property name="username" value="zctmrbiwtfiuhc"/>
 	    <property name="password" value="5cad2298b3e4a05c94786e9b812a704e457198810eaf33f57d18cc71dee7a360"/>
-	</bean> -->
+	</bean>
 	
 	<bean  class="org.springframework.orm.hibernate5.LocalSessionFactoryBean" 
 	id="sessionFactory">

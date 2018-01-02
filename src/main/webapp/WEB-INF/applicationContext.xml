@@ -33,6 +33,7 @@
 			<list>
 				<value>com.arrsoft.ebc.model.User</value>
 				<value>com.arrsoft.ebc.model.Role</value>
+				<value>com.arrsoft.ebc.model.Materi</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

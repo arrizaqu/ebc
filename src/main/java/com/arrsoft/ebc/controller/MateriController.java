@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.arrsoft.ebc.model.Materi;
+import com.arrsoft.ebc.model.MyClass;
 import com.arrsoft.ebc.security.ApiKey;
-import com.arrsoft.ebc.service.MateriService;
+import com.arrsoft.ebc.service.MyClassService;
 import com.arrsoft.ebc.utils.RzPaginate;
 
 @Controller
@@ -28,15 +28,16 @@ import com.arrsoft.ebc.utils.RzPaginate;
 public class MateriController {
 
 	@Autowired
-	private MateriService materiService;
+	private MyClassService materiService;
+	
 	@Autowired
 	private ServletContext servletContext;
 	
 	@RequestMapping("/{page}")
 	public String index(@PathVariable int page, Model model){
-		RzPaginate<Materi> paginate= new RzPaginate();
+		RzPaginate<MyClass> paginate= new RzPaginate();
 		int pageSize = 10;
-		List<Materi> listMateri = materiService.getMateriByPage(page, pageSize);
+		List<MyClass> listMateri = materiService.getMateriByPage(page, pageSize);
 		int totalRows = materiService.getCountMateri();
 		String url = servletContext.getContextPath()+ "/materi";
 		

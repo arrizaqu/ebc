@@ -15,6 +15,9 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
 public class Department {
 

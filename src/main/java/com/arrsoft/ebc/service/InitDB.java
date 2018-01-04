@@ -44,8 +44,8 @@ public class InitDB {
 		
 		//insert user
 		User userAdmin = new User();
-		userAdmin.setEmail("root@bankmega.com");
-		userAdmin.setUsername("root@bankmega.com");
+		userAdmin.setEmail("root@arrsoft.com");
+		userAdmin.setUsername("root@arrsoft.com");
 		userAdmin.setPassword(encodePassword("12345"));
 		userAdmin.setEnabled(1);
 		List<Role> rolesAdmin = new ArrayList();

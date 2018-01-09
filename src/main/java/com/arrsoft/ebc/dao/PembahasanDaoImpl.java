@@ -37,5 +37,19 @@ public class PembahasanDaoImpl implements PembahasanDao {
 		else 
 			return list;
 	}
+
+	public List<Pembahasan> getPembahasanByPageClassId(int page, int pageSize, String classid) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery("from Pembahasan p where p.myClass.id = :cid");
+		query.setParameter("cid", classid);
+		query.setFirstResult(page*pageSize);
+		query.setMaxResults(pageSize);
+		List<Pembahasan> list = query.list();
+		if(list.isEmpty())
+			return null;
+		else 
+			return list;
+	}
 	
 }

@@ -24,5 +24,9 @@ public class PembahasanService {
 		List<Pembahasan> listPembahasan= pembahasanDao.getPembahasanByPage(page, pageSize);
 		return listPembahasan;
 	}
+	public List<Pembahasan> getPembahasanByPageClassId(int page, int pageSize, String classid) {
+		// TODO Auto-generated method stub
+		return pembahasanDao.getPembahasanByPageClassId(page,pageSize, classid);
+	}
 
 }

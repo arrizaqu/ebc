@@ -78,6 +78,20 @@ public class MyClassWs {
 		return listPembahasan;
 	}
 	
+	@RequestMapping(value="/pembahasan/{page}/{classid}", method=RequestMethod.GET)
+	@ResponseBody
+	public List<Pembahasan> getPembahasanPage(@PathVariable int page, @PathVariable String classid){
+		int pageSize = 10;
+		List<Pembahasan> listPembahasan = pembahasanService.getPembahasanByPageClassId(page, pageSize, classid);
+		
+		if(listPembahasan == null){
+			Pembahasan bahasan = new Pembahasan();
+			listPembahasan = new ArrayList();
+			listPembahasan.add(bahasan);
+		}
+		return listPembahasan;
+	}
+	
 	@RequestMapping(value="/save-pembahasan/{key}/", method=RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	public void insertPembahasanByClass(@PathVariable String key, @RequestBody Pembahasan pembahasan){

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -30,30 +31,30 @@ public class MyClassWs {
 	private PembahasanService pembahasanService;
 	
 	//data all session class
-	@RequestMapping(value="get/{page}", method=RequestMethod.GET)
+	@RequestMapping(value="get", method=RequestMethod.GET)
 	@ResponseBody
-	public List<MyClass> getMateriPage(@PathVariable int page){
+	public List<MyClass> getMateriPage(@RequestParam(value="page", defaultValue="0") int page){
 		int pageSize = 10;
 		List<MyClass> listMateri = materiService.getMateriByPage(page, pageSize);
-		if(listMateri == null){
+		/*if(listMateri == null){
 			MyClass mc = new MyClass();
 			listMateri = new ArrayList();
 			listMateri.add(mc);
-		}
+		}*/
 		return listMateri;
 	}
 	
 	//data all session class by language
-	@RequestMapping(value="get/{page}/{lg}", method=RequestMethod.GET)
+	@RequestMapping(value="get-prog", method=RequestMethod.GET)
 	@ResponseBody
-	public List<MyClass> getMateriPageByLg(@PathVariable int page, @PathVariable String lg){
+	public List<MyClass> getMateriPageByLg(@RequestParam(value="page", defaultValue="0") int page, @RequestParam(value="programming", required=false) String prog){
 		int pageSize = 10;
-		List<MyClass> listMateri = materiService.getMateriByPageAndLg(page, pageSize, lg);
-		if(listMateri == null){
+		List<MyClass> listMateri = materiService.getMateriByPageAndLg(page, pageSize, prog);
+		/*if(listMateri == null){
 			MyClass mc = new MyClass();
 			listMateri = new ArrayList();
 			listMateri.add(mc);
-		}
+		}*/
 		return listMateri;
 	}
 	
@@ -78,17 +79,17 @@ public class MyClassWs {
 		return listPembahasan;
 	}
 	
-	@RequestMapping(value="/pembahasan/{page}/{classid}", method=RequestMethod.GET)
+	@RequestMapping(value="/pembahasan", method=RequestMethod.GET)
 	@ResponseBody
-	public List<Pembahasan> getPembahasanPage(@PathVariable int page, @PathVariable String classid){
+	public List<Pembahasan> getPembahasanPage(@RequestParam(value="page", defaultValue="0") int page, @RequestParam(value="classid", required=false) String classid){
 		int pageSize = 10;
 		List<Pembahasan> listPembahasan = pembahasanService.getPembahasanByPageClassId(page, pageSize, classid);
-		
+		/*
 		if(listPembahasan == null){
 			Pembahasan bahasan = new Pembahasan();
 			listPembahasan = new ArrayList();
 			listPembahasan.add(bahasan);
-		}
+		}*/
 		return listPembahasan;
 	}
 	

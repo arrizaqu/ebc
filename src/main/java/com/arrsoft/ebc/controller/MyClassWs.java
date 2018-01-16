@@ -66,16 +66,12 @@ public class MyClassWs {
 		} 
 	}
 	
-	@RequestMapping(value="/pembahasan/{page}", method=RequestMethod.GET)
+	@RequestMapping(value="/list-pembahasan", method=RequestMethod.GET)
 	@ResponseBody
-	public List<Pembahasan> getPembahasanPage(@PathVariable int page){
+	public List<Pembahasan> getPembahasanPage(@RequestParam(value="page", defaultValue="0") int page){
 		int pageSize = 10;
 		List<Pembahasan> listPembahasan = pembahasanService.getPembahasanByPage(page, pageSize);
-		if(listPembahasan == null){
-			Pembahasan bahasan = new Pembahasan();
-			listPembahasan = new ArrayList();
-			listPembahasan.add(bahasan);
-		}
+		
 		return listPembahasan;
 	}
 	

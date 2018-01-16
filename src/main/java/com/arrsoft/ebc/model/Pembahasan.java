@@ -1,5 +1,6 @@
 package com.arrsoft.ebc.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -16,8 +17,8 @@ public class Pembahasan {
 	@GeneratedValue(generator = "system-uuid")
 	@GenericGenerator(name = "system-uuid", strategy = "uuid2")
 	private String id;
-	@NotNull @NotEmpty
 	private String sectionTitle;
+	@Column(columnDefinition="text")
 	private String contentText;
 	private String videosUrl;
 	private String category;

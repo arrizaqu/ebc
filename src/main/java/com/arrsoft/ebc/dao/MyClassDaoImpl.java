@@ -46,7 +46,7 @@ public class MyClassDaoImpl implements MyClassDao{
 	public void save(MyClass materi) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		session.save(materi);
+		session.saveOrUpdate(materi);
 		session.flush();
 	}
 
@@ -62,6 +62,25 @@ public class MyClassDaoImpl implements MyClassDao{
 			return null;
 		else 
 			return list;
+	}
+
+	public void delete(MyClass myClass) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		session.delete(myClass);
+		session.flush();
+	}
+
+	public List<MyClass> getAll() {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		return session.createCriteria(MyClass.class).list();
+	}
+
+	public MyClass getMyClassById(String id) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		return session.get(MyClass.class, id);
 	}
 
 }

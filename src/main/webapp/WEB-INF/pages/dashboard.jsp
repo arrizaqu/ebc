@@ -33,27 +33,27 @@
     -->
             <div class="logo">
                 <a href="http://www.creative-tim.com" class="simple-text">
-                    Bank Mega
+                    Ebc Development
                 </a>
             </div>
             <div class="sidebar-wrapper">
-                <ul class="nav">
+                 <ul class="nav">
                     <li class="active">
                         <a href="dashboard.html">
                             <i class="material-icons">dashboard</i>
                             <p>Dashboard</p>
                         </a>
                     </li>
-                      <li>
-                        <a href="${pageContext.request.contextPath}/department">
+                     <li>
+                        <a href="${pageContext.request.contextPath }/myclass">
                             <i class="material-icons">library_books</i>
-                            <p>Department</p>
+                            <p>Class</p>
                         </a>
                     </li>
                     <li>
-                        <a href="${pageContext.request.contextPath}/employee">
+                        <a href="${pageContext.request.contextPath}/pembahasan">
                              <i class="material-icons">bubble_chart</i>
-                            <p>Employee</p>
+                            <p>Materi</p>
                         </a>
                     </li>
                     <li>
@@ -62,7 +62,7 @@
                             <p>User Account</p>
                         </a>
                     </li>
-                    <li>
+                     <li>
                         <a href="#" id="logout">
                             <i class="material-icons">block</i>
                             <p>Logout</p>

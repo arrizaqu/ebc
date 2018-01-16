@@ -37,5 +37,28 @@ public class MyClassService {
 		materiDao.save(materi);
 	}
 
+	public void delete(MyClass myClass) {
+		// TODO Auto-generated method stub
+		materiDao.delete(myClass);
+	}
+
+	public List<MyClass> getAll() {
+		// TODO Auto-generated method stub
+		return materiDao.getAll();
+	}
+
+	public MyClass getMyClassById(String id) {
+		// TODO Auto-generated method stub
+		return materiDao.getMyClassById(id);
+	}
+
+	public void update(MyClass myClass) {
+		// TODO Auto-generated method stub
+		MyClass oldData = getMyClassById(myClass.getId());
+		oldData.setDescription(myClass.getDescription());
+		oldData.setTitle(myClass.getTitle());
+		materiDao.save(oldData);
+	}
+
 
 }

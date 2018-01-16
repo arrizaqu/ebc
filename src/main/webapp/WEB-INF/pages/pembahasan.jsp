@@ -1,5 +1,7 @@
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+
 <c:url value="/j_spring_security_logout" var="logoutUrl" />
 <!doctype html>
 <html lang="en">
@@ -21,11 +23,12 @@
     <link href="${pageContext.request.contextPath}/resources/assets/css/material-dashboard.css?v=1.2.0" rel="stylesheet" />
     <!--  CSS for Demo Purpose, don't include it in your project     -->
     <link href="${pageContext.request.contextPath}/resources/assets/css/demo.css" rel="stylesheet" />
+    <link href="${pageContext.request.contextPath}/resources/assets/datepicker/dist/datepicker.min.css" rel="stylesheet" />
     <!--     Fonts and icons     -->
     <link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
-	<style>
+	<style type="text/css">	
 		input.parsley-error
 		{
 		  color: #B94A48 !important;
@@ -45,11 +48,11 @@
     -->
             <div class="logo">
                 <a href="http://www.creative-tim.com" class="simple-text">
-                   	Ebc Development
+                    Ebc Development
                 </a>
             </div>
             <div class="sidebar-wrapper">
-                 <ul class="nav">
+                <ul class="nav">
                     <li>
                         <a href="dashboard.html">
                             <i class="material-icons">dashboard</i>
@@ -62,13 +65,13 @@
                             <p>Class</p>
                         </a>
                     </li>
-                    <li>
+                    <li class="active">
                         <a href="${pageContext.request.contextPath}/pembahasan">
                              <i class="material-icons">bubble_chart</i>
                             <p>Materi</p>
                         </a>
                     </li>
-                    <li class="active">
+                    <li>
                         <a href="${pageContext.request.contextPath}/account">
                             <i class="material-icons">person</i>
                             <p>User Account</p>
@@ -98,7 +101,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="#"> User Account Management </a>
+                        <a class="navbar-brand" href="#"> Pembahasan Materi </a>
                     </div>
                     <div class="collapse navbar-collapse">
                         
@@ -118,92 +121,116 @@
             <div class="content">
                 <div class="container-fluid">
                     <div class="row">
-                    <div class="col-lg-6 col-md-12">
+	                    <div class="col-lg-12 col-md-12">
+			                    <c:if test="${not empty message}">
+									<div  class="alert alert-info" >
+										<c:out value="${message }"></c:out>
+									</div>	
+								</c:if>
+	                            <div class="card">
+	                                <div class="card-header" data-background-color="transparent">
+	                                    <h4 class="title">Tambah Materi</h4>
+	                                </div>
+	                             	<div class="card-content table-responsive">
+	                             <form:form action="${pageContext.request.contextPath }/pembahasan/save" commandName="commandPembahasan" method="POST">
+									<form:errors path="*" cssClass="errorblock" element="div"/>
+									<div class="form-group">
+										<label for="sectionTitle">Title</label>
+										<form:input type="text" path="sectionTitle" class="form-control" id="sectionTitle" placeholder="Enter Class Title" />
+										 <form:errors style="color: red;" path="sectionTitle"></form:errors>
+									</div>
+									<div class="form-group">
+										<label for="name">URL Video</label>
+										<form:input type="text" path="videosUrl" class="form-control" id="videosUrl" placeholder="Enter video URL" />
+										 <form:errors style="color: red;" path="videosUrl"></form:errors>
+									</div>
+									<div class="form-group">
+										<label for="name">Category</label>
+										<form:input type="text" path="category" class="form-control" id="category" placeholder="Enter Category" />
+										 <form:errors style="color: red;" path="category"></form:errors>
+									</div>
+									<div class="form-group">
+										<label for="name">File URL</label>
+										<form:input type="text" path="fileUrl" class="form-control" id="fileUrl" placeholder="Enter Category" />
+										 <form:errors style="color: red;" path="fileUrl"></form:errors>
+									</div>
+									<div class="form-group">
+										<label for="name">Blog URL</label>
+										<form:input type="text" path="blogUrl" class="form-control" id="blogUrl" placeholder="Enter Category" />
+										 <form:errors style="color: red;" path="blogUrl"></form:errors>
+									</div>
+									<%-- <div class="form-group">
+										<label for="name">Programming Language</label>
+										<select class="form-control" >
+											<c:forEach var="myval" items="lgList">
+												<option value="java">java</option>
+												<option value="php">php</option>
+												<option value=".NET">.NET</option>
+											</c:forEach>
+										</select>
+									</div> --%>
+									<div class="form-group">
+										<label for="name">Programming Language</label>
+										  <form:select class="form-control"  path="myClass.id">
+										  	<c:forEach items="${listClass }" var="myclass">
+										  		 <form:option value="${myclass.id }">${myclass.title} (${myclass.programmingLanguage})</form:option>
+										  	</c:forEach>
+										  </form:select>
+									</div>
+									<div class="form-group">
+										<label for="name">Materi Pembahasan</label>
+										<form:textarea style="width: 100%; min-height: 150px;" path="contentText" id="contentText"/>
+										<div id="exampleid">
+										 <form:errors style="color: red;" path="contentText"></form:errors>
+									</div>
+									<input type="submit" id="add-book" class="btn btn-sm btn-primary" value="Save" />		
+								</form:form> 
+	                     			</div>
+	                 			</div>
+	                   	</div>
+                	</div>
+                    <div class="row">
+                    <div class="col-lg-12 col-md-12">
                             <div class="card">
                                 <div class="card-header" data-background-color="orange">
-                                    <h4 class="title">User Role</h4>
+                                    <h4 class="title">List Materi</h4>
                                     <p class="category">
-                                    <a id="btn-add-account" class="btn btn-info btn-sm">Add user and role</a></p>
                                 </div>
                                 <div class="card-content table-responsive">
                                     <table id="table-user" class="table table-hover">
                                         <thead class="text-warning">
-                                            <th>Username</th>
-                                            <th>Email</th>
-                                            <th>Status</th>
-                                            <th>Role</th>
-                                            <th>Detail</th>
+                                            <th>Title</th>
+                                            <th>Video URL</th>
+                                            <th>Category</th>
+                                            <th>File URL</th>
+                                            <th>Blog URL</th>
+                                            <th>Action</th>
                                         </thead>
                                         <tbody>
-                                            <c:forEach var="user" items="${users }">
+                                             <c:forEach var="bahasan" items="${myPagination.dataPopulate }">
                                             	<tr>
-                                            		<td><c:out value="${user.username }"></c:out></td>
-                                            		<td><c:out value="${user.email }"></c:out></td>
+                                            		<td><c:out value="${bahasan.sectionTitle }"></c:out></td>
+                                            		<td><c:out value="${bahasan.videosUrl }"></c:out></td>
+                                            		<td><c:out value="${bahasan.category }"></c:out></td>
+                                            		<td><c:out value="${bahasan.fileUrl }"></c:out></td>
+                                            		<td><c:out value="${bahasan.blogUrl }"></c:out></td>
                                             		<td>
-                                            		<c:choose>
-                                            			<c:when test="${user.enabled == 1}">
-                                            				Active
-                                            			</c:when>
-                                            			<c:when test="${user.enabled == 0 }">
-                                            				Not Active
-                                            			</c:when>
-                                            		</c:choose>
-                                            	</td>
-                       							<td>
-                       								<c:forEach var="role" items="${user.roles }">
-                       									<div><a href="#"><c:out value="${role.roleName}"/></a></div>
-                       								</c:forEach>
-                       							</td>
-                       							<td>
-                       								<a id="${user.id }" class="btn btn-sm btn-primary view-detail" href="#">View Detail</a>
-                       							</td>
+                                            			<button id="${bahasan.id }" type="button" rel="tooltip" title="Edit ${mc.title }" class="btn btn-success btn-simple btn-xs btn-edit">
+										                    <i class="fa fa-edit"></i>
+										                </button>
+										                <button id="${bahasan.id }" type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs btn-delete">
+										                    <i class="fa fa-times"></i>
+										                </button>
+                                            		</td>
                                             	</tr>
                                             </c:forEach>
                                         </tbody>
                                     </table>
+                                     <div>${myPagination.completeLinkePage }</div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-md-12">
-                            <div class="card card-nav-tabs">
-                                <div class="card-header" data-background-color="purple">
-                                    <div class="nav-tabs-navigation">
-                                        <div class="nav-tabs-wrapper">
-                                            <span class="nav-tabs-title">List Roles</span>
-                                            <ul class="nav nav-tabs" data-tabs="tabs">
-                                                <li class="active">
-                                                    <a id="btn-add-role" href="#profile" data-toggle="tab">
-                                                        <%-- <security:authentication property="principal.username" /> --%>
-                                                        Add Role
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-content">
-                                    <div class="tab-content">
-                                        <div class="tab-pane active" id="profile">
-                                            <table class="table" id="role-table">
-                                            	<thead>
-                                            		<tr>
-                                            			<td>Role Name</td>
-                                            		</tr>
-                                            	</thead>
-                                            	<tbody>
-                                            		<c:forEach var="role" items="${roles }">
-                                            		<tr>
-                                            			<td><c:out value="${role.roleName }"></c:out></td>
-                                            		</tr>
-                                            		</c:forEach>
-                                            	</tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
+    
                     </div>
                 </div>
             </div>
@@ -242,12 +269,13 @@
                     </p>
                 </div>
             </footer>
+            <div>
+            	<%@ include file="./modal/edit-pembahasan.html" %>
+            </div>
         </div>
     </div>
-    <%@include file="/WEB-INF/pages/modal/update-account.html" %>
-    <%@include file="/WEB-INF/pages/modal/add-account.html" %>
-    <%@include file="/WEB-INF/pages/modal/add-role.html" %>
 </body>
+
 <!--   Core JS Files   -->
 <script src="${pageContext.request.contextPath}/resources/assets/js/jquery-3.2.1.min.js" type="text/javascript"></script>
 <script src="${pageContext.request.contextPath}/resources/assets/js/bootstrap.min.js" type="text/javascript"></script>
@@ -258,6 +286,7 @@
 <script src="${pageContext.request.contextPath}/resources/assets/js/arrive.min.js"></script>
 <!--  PerfectScrollbar Library -->
 <script src="${pageContext.request.contextPath}/resources/assets/js/perfect-scrollbar.jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/assets/datepicker/dist/datepicker.js"></script>
 <!--  Notifications Plugin    -->
 <script src="${pageContext.request.contextPath}/resources/assets/js/bootstrap-notify.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.8.0/parsley.min.js"></script>
@@ -270,174 +299,78 @@
 <script type="text/javascript">
     $(document).ready(function() {
     	
-    	 function ajaxSetUp(){
-    		 var token = $("meta[name='_csrf']").attr("content");
-    		  var header = $("meta[name='_csrf_header']").attr("content");
-    		  $(document).ajaxSend(function(e, xhr, options) {
-    		    xhr.setRequestHeader(header, token);
-    		  });
-    	 }
-    	 
-    	 $('#table-user').DataTable();
-    	 $('#role-table').DataTable();
-     
-    	 // Javascript method's body can be found in assets/js/demos.js
-    	 $('.view-detail').on('click', function(){
-    		 var id = $(this).attr('id');
-    		 $(this).removeAttr("checked");	 
-    		 $.ajax({
-    			 url: 'account/user/'+id,
-    			 type: 'GET',
-    			 beforeSend: function(){
-    				ajaxSetUp(); 
-    			 },
-    			 success: function(data){
-    				 console.log(data);
-    				 $("select[name='roles'] option:selected").prop("selected", false)
-    				 $('#idEdit').val(data.id);
-    				 $('input[name="user.username"]').val(data.username);
-    				 $('input[name="user.email"]').val(data.email);
-    				 
-    				 if(data.enabled == 1){
-    					$('#statusUser').attr("checked","");	 
-    				 } 
-    				 
-    				 $.each(data.roles, function(index, value){ 
-    					  $("select[name='roles'] option[value='" + value.id + "']").prop("selected", true);
-    				 });
-    			 }
-    		 });
-         	$('#modal-edit-account-view-detail').modal();
-         });
-    	 
-    	 $("#statusUser").on("click", function(){
-    		 var attr = $(this).attr('checked');
-    		 if (typeof attr !== typeof undefined && attr !== false) {
-    			 $(this).removeAttr("checked");	    
-    		 } else {
-    			 $(this).attr("checked", "");
-    		 }
-    	 });
-    	 
-    	 $("#add-statusUser").on("click", function(){
-    		 var attr = $(this).attr('checked');
-    		 if (typeof attr !== typeof undefined && attr !== false) {
-    			 $(this).removeAttr("checked");	    
-    		 } else {
-    			 $(this).attr("checked", "");
-    		 }
-    	 });
-    	 
-    	 $('#btn-edit').on('click', function(){
-    		 var attr = $("#statusUser").attr('checked');
-    		 var enable = 0;
-    		 if (typeof attr !== typeof undefined && attr !== false) {
-    			 enable = 1;
-    		 }
-    		 var user = {
-    				id : $('#idEdit').val(),
-    				username : $('input[name="user.username"]').val(),
-    				email : $('input[name="user.email"]').val(),
-    				enabled : enable,
-    				roles : []
-    		 }
-    		 
-    		 $.each($('#listRoles').val(), function(index, val){
-    			 var role = {
-    				id : val
-    			 }
-    			 user.roles.push(role);
-    		 });
-    		
-			$.ajax({
-				 url : 'account/updaterole',
-				 type: 'PUT', 
-				 contentType: 'application/json',
-				 data : JSON.stringify(user),
-				 success: function(data){
-					 window.location = "account";
-				 }
-			 });
-    	 });
-    	 
-    	 $('#btn-add-account').on('click', function(){
-    		 $("#add-account-modal").modal();
-    	 });
-    	 //validation form
-    	 $('#btn-add-account-submit').click(function(){
-    		 var validate = $('#form-add-account').parsley();
-    		 
-        	 validate.validate();
-        	 if(validate.isValid()){
-        	 	//do next code..
-        	 	 var attr = $("#add-statusUser").attr('checked');
-	    		 var enable = 0;
-	    		 if (typeof attr !== typeof undefined && attr !== false) {
-	    			 enable = 1;
-	    		 }
-	    		 
-        		 var user = {
-         				username : $('input[name="add.user.username"]').val(),
-         				email : $('input[name="add.user.email"]').val(),
-         				password: $('input[name="add.user.password"]').val(),
-         				enabled : enable,
-         				roles : []
-         		 }
-         		 
-         		 $.each($('#add-listRoles').val(), function(index, val){
-         			 var role = {
-         				id : val
-         			 }
-         			 user.roles.push(role);
-         		 });
-	    		 
-        		 $.ajax({
-        			 url : "account/save/",
-        			 type: 'POST',
-        			 beforeSend: function(){
-        				 ajaxSetUp();
-        			 },
-        			 contentType: 'application/json',
-        			 data : JSON.stringify(user),
-        			 error: function(){
-        				 alert("create user failed!");
-        			 },
-        			 success: function(data){
-        				 window.location = "account";
-        			 }
-        		 });
-        	 } 
-    	 });
-    	 
-    	 $('#btn-add-role').on('click', function(){
-    		 $('#add-role-modal').modal();
-    	 });
-    	 
-    	 $('#btn-add-role-submit').on('click', function(){
-    		 var validate = $('#form-add-role').parsley();
-    		 if(validate.validate()){
-    			var role = {
-    				roleName : $('#role-name').val(),
-    			}
+    	//set style editor 
+    	
+    	$('.btn-delete').on('click', function(){
+    		var id = $(this).attr('id');
+    		var conf = confirm('Are you sure delete data ?');
+    		if(conf == true){
+    			//do delete
     			ajaxSetUp();
     			$.ajax({
-    				url: 'account/addrole',
-    				type: 'POST',
-    				data: JSON.stringify(role),
-    				contentType: 'application/json',
+    				type: 'DELETE',
+    				url : '${pageContext.request.contextPath}/pembahasan/delete/'+id,
     				success: function(data){
-    					console.log(data);
+    					window.location = '${pageContext.request.contextPath}/pembahasan';
     				}
     			});
-    		 }
-    		 
-    	 });
-    	 
-    	//logout event button
-    	 $('#logout').click(function(event){
-    		 event.preventDefault();
-    		$('#logoutForm').submit();
-    	 });
+    		}
+    		
+    		return false;
+    	});
+    	
+    	$(".btn-edit").on('click', function(){
+    		var id = $(this).attr('id');
+    		ajaxSetUp();
+    		$.ajax({
+    			url : "${pageContext.request.contextPath}/pembahasan/get?id="+id,
+    			type: 'GET',
+    			success: function(data){
+    				$('#id-bahasan').val(data.id);
+    				$('#title-bahasan').val(data.sectionTitle);
+    				$('#category-bahasan').val(data.category);
+    				$('#file-url-bahasan').val(data.fileUrl);
+    				$('#video-url-bahasan').val(data.videosUrl);
+    				$('#blog-url-bahasan').val(data.blogUrl);
+    				$('#content-bahasan').val(data.contentText);
+    				
+    			}, dataType: 'json'
+    		});
+    		$('#edit-bahasan-modal').modal();
+    	});
+    	
+    	$('#btn-update-bahasan-submit').on('click', function(){
+    		var pembahasan = {
+    				id : $('#id-bahasan').val(),
+    				sectionTitle: $('#title-bahasan').val(),
+    				category: $('#category-bahasan').val(),
+    				fileUrl: $('#file-url-bahasan').val(),
+    				videosUrl: $('#video-url-bahasan').val(),
+    				blogUrl: $('#blog-url-bahasan').val(),
+    				contentText: $('#content-bahasan').val()
+    		};
+    		console.log(pembahasan);
+    		ajaxSetUp();
+    		$.ajax({
+    			url : '${pageContext.request.contextPath}/pembahasan/update',
+    			type: 'PUT',
+    			contentType: 'application/json',
+    			data : JSON.stringify(pembahasan),
+    			success : function(data){
+    				window.location = "${pageContext.request.contextPath}/pembahasan";
+    			}, error: function(){
+					alert('update failed!!');
+    			}
+    		});
+    	});
+    	
+    	function ajaxSetUp(){
+	   		 var token = $("meta[name='_csrf']").attr("content");
+	   		  var header = $("meta[name='_csrf_header']").attr("content");
+	   		  $(document).ajaxSend(function(e, xhr, options) {
+	   		    xhr.setRequestHeader(header, token);
+	   		  });
+	   	 }
     });
 </script>
 

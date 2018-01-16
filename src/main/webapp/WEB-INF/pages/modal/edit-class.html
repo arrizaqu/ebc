@@ -1,0 +1,31 @@
+<!-- Modal -->
+<div class="modal fade" id="edit-class-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Pembahasan</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="form-edit-employee" action="#">
+        	<input type="hidden" id="id-class">
+			  <div class="form-group">
+			    <label for="title-class">Title</label>
+			    <input data-parsley-required="true" type="text" name="title-class" class="form-control" id="title-class" aria-describedby="titleHelp" placeholder="Enter Title Class">
+			  </div>
+			  <div class="form-group">
+			    <label for="desc-class">Description</label>
+			    <input type="text" name="desc-class" class="form-control" id="desc-class" aria-describedby="videoUrlHelp" placeholder="Enter Video URL">
+			  </div>
+			  
+		  </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" id="btn-update-class-submit" class="btn btn-primary btn-edit-class">Update</button>
+      </div>
+    </div>
+  </div>
+</div>

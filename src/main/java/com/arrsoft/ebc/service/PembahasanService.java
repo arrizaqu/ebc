@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.arrsoft.ebc.dao.PembahasanDao;
+import com.arrsoft.ebc.model.MyClass;
 import com.arrsoft.ebc.model.Pembahasan;
 
 @Transactional
@@ -27,6 +28,18 @@ public class PembahasanService {
 	public List<Pembahasan> getPembahasanByPageClassId(int page, int pageSize, String classid) {
 		// TODO Auto-generated method stub
 		return pembahasanDao.getPembahasanByPageClassId(page,pageSize, classid);
+	}
+	public List<Pembahasan> getAll() {
+		// TODO Auto-generated method stub
+		return pembahasanDao.getAll();
+	}
+	public void delete(Pembahasan pembahasan) {
+		// TODO Auto-generated method stub
+		pembahasanDao.delete(pembahasan);
+	}
+	public Pembahasan getPembahasanById(String id) {
+		// TODO Auto-generated method stub
+		return pembahasanDao.getPembahasanById(id);
 	}
 
 }

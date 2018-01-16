@@ -10,4 +10,7 @@ public interface MyClassDao {
 	int getCountMateri();
 	void save(MyClass myClass);
 	List<MyClass> getMateriByPageByLg(int page, int pageSize, String lg);
+	void delete(MyClass myClass);
+	List<MyClass> getAll();
+	MyClass getMyClassById(String id);
 }

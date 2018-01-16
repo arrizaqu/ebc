@@ -141,8 +141,8 @@ public class RzPaginate<T>{
 			lastPaging = endPaging;
 		}
 		
-		if( beforePage >= 1){
-			linkPages.add("<li class='page-item'><a href='"+getBaseUrl()+"/"+beforePage+"' class='page-link' >Before page</a></li>");
+		if( beforePage >= 0){
+			linkPages.add("<li class='page-item'><a href='"+getBaseUrl()+"?page="+beforePage+"' class='page-link' >Before page</a></li>");
 		} 
 		
 		for(int i = startPaging; i <= lastPaging; i++){		
@@ -158,13 +158,13 @@ public class RzPaginate<T>{
 			else if(i == totalPage)
 				linkPages.add("<li class='page-item "+active+"'><a href='"+url+"/"+i+"' class='page-link' >Last Page</a></li>");
 			else {*/
-				linkPages.add("<li class='page-item "+active+"'><a href='"+getBaseUrl()+"/"+i+"' class='page-link' >"+i+"</a></li>");
+				linkPages.add("<li class='page-item "+active+"'><a href='"+getBaseUrl()+"?page="+i+"' class='page-link' >"+i+"</a></li>");
 			//} 
 			index++;
 		}
 		
 		if( nextPage <= totalPage){
-			linkPages.add("<li class='page-item'><a href='"+getBaseUrl()+"/"+nextPage+"' class='page-link' >Next Page</a></li>");
+			linkPages.add("<li class='page-item'><a href='"+getBaseUrl()+"?page="+nextPage+"' class='page-link' >Next Page</a></li>");
 		} 
 	}
 	

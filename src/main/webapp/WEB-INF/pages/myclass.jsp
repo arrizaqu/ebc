@@ -1,5 +1,7 @@
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+
 <c:url value="/j_spring_security_logout" var="logoutUrl" />
 <!doctype html>
 <html lang="en">
@@ -21,6 +23,7 @@
     <link href="${pageContext.request.contextPath}/resources/assets/css/material-dashboard.css?v=1.2.0" rel="stylesheet" />
     <!--  CSS for Demo Purpose, don't include it in your project     -->
     <link href="${pageContext.request.contextPath}/resources/assets/css/demo.css" rel="stylesheet" />
+    <link href="${pageContext.request.contextPath}/resources/assets/datepicker/dist/datepicker.min.css" rel="stylesheet" />
     <!--     Fonts and icons     -->
     <link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
@@ -45,18 +48,18 @@
     -->
             <div class="logo">
                 <a href="http://www.creative-tim.com" class="simple-text">
-                   	Ebc Development
+                    Ebc Development
                 </a>
             </div>
             <div class="sidebar-wrapper">
-                 <ul class="nav">
+                <ul class="nav">
                     <li>
                         <a href="dashboard.html">
                             <i class="material-icons">dashboard</i>
                             <p>Dashboard</p>
                         </a>
                     </li>
-                     <li>
+                     <li class="active">
                         <a href="${pageContext.request.contextPath }/myclass">
                             <i class="material-icons">library_books</i>
                             <p>Class</p>
@@ -68,7 +71,7 @@
                             <p>Materi</p>
                         </a>
                     </li>
-                    <li class="active">
+                    <li>
                         <a href="${pageContext.request.contextPath}/account">
                             <i class="material-icons">person</i>
                             <p>User Account</p>
@@ -98,7 +101,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="#"> User Account Management </a>
+                        <a class="navbar-brand" href="#"> Class Training </a>
                     </div>
                     <div class="collapse navbar-collapse">
                         
@@ -118,92 +121,87 @@
             <div class="content">
                 <div class="container-fluid">
                     <div class="row">
-                    <div class="col-lg-6 col-md-12">
+	                    <div class="col-lg-12 col-md-12">
+			                    <c:if test="${not empty message}">
+									<div  class="alert alert-info" >
+										<c:out value="${message }"></c:out>
+									</div>	
+								</c:if>
+	                            <div class="card">
+	                                <div class="card-header" data-background-color="transparent">
+	                                    <h4 class="title">Form Add Class</h4>
+	                                </div>
+	                             	<div class="card-content table-responsive">
+	                             		 
+	                             	<form:form action="${pageContext.request.contextPath }/myclass/save" commandName="commandClass" method="POST">
+									<form:errors path="*" cssClass="errorblock" element="div"/>
+									<div class="form-group">
+										<label for="name">Name</label>
+										<form:input type="text" path="title" class="form-control" id="title" placeholder="Enter Class Title" />
+										 <form:errors style="color: red;" path="title"></form:errors>
+									</div>
+									<div class="form-group">
+										<label for="name">Description Class</label>
+										<form:input type="text" path="description" class="form-control" id="description" placeholder="Enter Training Description" />
+										 <form:errors style="color: red;" path="description"></form:errors>
+									</div>
+									<div class="form-group">
+										<label for="name">Trainer</label>
+										<form:input type="text" path="trainer" class="form-control" id="trainer" placeholder="Enter Trainer Name" />
+										 <form:errors style="color: red;" path="trainer"></form:errors>
+									</div>
+									<div class="form-group">
+										<label for="name">Programming Language</label>
+										<form:select class="form-control" path="programmingLanguage">
+										    <form:options items="${lgList}" />
+										</form:select>
+									</div>
+									<input type="submit" id="add-book" class="btn btn-sm btn-primary" value="Add" />		
+								</form:form>
+	                     			</div>
+	                 			</div>
+	                   	</div>
+                	</div>
+                    <div class="row">
+                    <div class="col-lg-12 col-md-12">
                             <div class="card">
                                 <div class="card-header" data-background-color="orange">
-                                    <h4 class="title">User Role</h4>
+                                    <h4 class="title">List Training Classes</h4>
                                     <p class="category">
-                                    <a id="btn-add-account" class="btn btn-info btn-sm">Add user and role</a></p>
                                 </div>
                                 <div class="card-content table-responsive">
                                     <table id="table-user" class="table table-hover">
                                         <thead class="text-warning">
-                                            <th>Username</th>
-                                            <th>Email</th>
-                                            <th>Status</th>
-                                            <th>Role</th>
-                                            <th>Detail</th>
+                                            <th>Title</th>
+                                            <th>Description</th>
+                                            <th>Programing</th>
+                                            <th>Trainer</th>
+                                            <th>Action</th>
                                         </thead>
                                         <tbody>
-                                            <c:forEach var="user" items="${users }">
+                                             <c:forEach var="mc" items="${myPagination.dataPopulate }">
                                             	<tr>
-                                            		<td><c:out value="${user.username }"></c:out></td>
-                                            		<td><c:out value="${user.email }"></c:out></td>
+                                            		<td><c:out value="${mc.title }"></c:out></td>
+                                            		<td><c:out value="${mc.description }"></c:out></td>
+                                            		<td><c:out value="${mc.programmingLanguage }"></c:out></td>
+                                            		<td><c:out value="${mc.trainer }"></c:out></td>
                                             		<td>
-                                            		<c:choose>
-                                            			<c:when test="${user.enabled == 1}">
-                                            				Active
-                                            			</c:when>
-                                            			<c:when test="${user.enabled == 0 }">
-                                            				Not Active
-                                            			</c:when>
-                                            		</c:choose>
-                                            	</td>
-                       							<td>
-                       								<c:forEach var="role" items="${user.roles }">
-                       									<div><a href="#"><c:out value="${role.roleName}"/></a></div>
-                       								</c:forEach>
-                       							</td>
-                       							<td>
-                       								<a id="${user.id }" class="btn btn-sm btn-primary view-detail" href="#">View Detail</a>
-                       							</td>
+                                            			<button id="${mc.id }" type="button" rel="tooltip" title="Edit ${mc.title }" class="btn btn-success btn-simple btn-xs btn-edit">
+										                    <i class="fa fa-edit"></i>
+										                </button>
+										                <button id="${mc.id }" type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs btn-delete">
+										                    <i class="fa fa-times"></i>
+										                </button>
+                                            		</td>
                                             	</tr>
                                             </c:forEach>
                                         </tbody>
                                     </table>
+                                     <div>${myPagination.completeLinkePage }</div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-md-12">
-                            <div class="card card-nav-tabs">
-                                <div class="card-header" data-background-color="purple">
-                                    <div class="nav-tabs-navigation">
-                                        <div class="nav-tabs-wrapper">
-                                            <span class="nav-tabs-title">List Roles</span>
-                                            <ul class="nav nav-tabs" data-tabs="tabs">
-                                                <li class="active">
-                                                    <a id="btn-add-role" href="#profile" data-toggle="tab">
-                                                        <%-- <security:authentication property="principal.username" /> --%>
-                                                        Add Role
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-content">
-                                    <div class="tab-content">
-                                        <div class="tab-pane active" id="profile">
-                                            <table class="table" id="role-table">
-                                            	<thead>
-                                            		<tr>
-                                            			<td>Role Name</td>
-                                            		</tr>
-                                            	</thead>
-                                            	<tbody>
-                                            		<c:forEach var="role" items="${roles }">
-                                            		<tr>
-                                            			<td><c:out value="${role.roleName }"></c:out></td>
-                                            		</tr>
-                                            		</c:forEach>
-                                            	</tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
+    
                     </div>
                 </div>
             </div>
@@ -242,11 +240,12 @@
                     </p>
                 </div>
             </footer>
+        	<div>
+        		<%@ include file="./modal/edit-class.html" %>
+        	</div>
         </div>
     </div>
-    <%@include file="/WEB-INF/pages/modal/update-account.html" %>
-    <%@include file="/WEB-INF/pages/modal/add-account.html" %>
-    <%@include file="/WEB-INF/pages/modal/add-role.html" %>
+    
 </body>
 <!--   Core JS Files   -->
 <script src="${pageContext.request.contextPath}/resources/assets/js/jquery-3.2.1.min.js" type="text/javascript"></script>
@@ -258,6 +257,7 @@
 <script src="${pageContext.request.contextPath}/resources/assets/js/arrive.min.js"></script>
 <!--  PerfectScrollbar Library -->
 <script src="${pageContext.request.contextPath}/resources/assets/js/perfect-scrollbar.jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/assets/datepicker/dist/datepicker.js"></script>
 <!--  Notifications Plugin    -->
 <script src="${pageContext.request.contextPath}/resources/assets/js/bootstrap-notify.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.8.0/parsley.min.js"></script>
@@ -269,175 +269,65 @@
 <script src="${pageContext.request.contextPath}/resources/assets/js/demo.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
-    	
-    	 function ajaxSetUp(){
-    		 var token = $("meta[name='_csrf']").attr("content");
-    		  var header = $("meta[name='_csrf_header']").attr("content");
-    		  $(document).ajaxSend(function(e, xhr, options) {
-    		    xhr.setRequestHeader(header, token);
-    		  });
-    	 }
-    	 
-    	 $('#table-user').DataTable();
-    	 $('#role-table').DataTable();
-     
-    	 // Javascript method's body can be found in assets/js/demos.js
-    	 $('.view-detail').on('click', function(){
-    		 var id = $(this).attr('id');
-    		 $(this).removeAttr("checked");	 
-    		 $.ajax({
-    			 url: 'account/user/'+id,
-    			 type: 'GET',
-    			 beforeSend: function(){
-    				ajaxSetUp(); 
-    			 },
-    			 success: function(data){
-    				 console.log(data);
-    				 $("select[name='roles'] option:selected").prop("selected", false)
-    				 $('#idEdit').val(data.id);
-    				 $('input[name="user.username"]').val(data.username);
-    				 $('input[name="user.email"]').val(data.email);
-    				 
-    				 if(data.enabled == 1){
-    					$('#statusUser').attr("checked","");	 
-    				 } 
-    				 
-    				 $.each(data.roles, function(index, value){ 
-    					  $("select[name='roles'] option[value='" + value.id + "']").prop("selected", true);
-    				 });
-    			 }
-    		 });
-         	$('#modal-edit-account-view-detail').modal();
-         });
-    	 
-    	 $("#statusUser").on("click", function(){
-    		 var attr = $(this).attr('checked');
-    		 if (typeof attr !== typeof undefined && attr !== false) {
-    			 $(this).removeAttr("checked");	    
-    		 } else {
-    			 $(this).attr("checked", "");
-    		 }
-    	 });
-    	 
-    	 $("#add-statusUser").on("click", function(){
-    		 var attr = $(this).attr('checked');
-    		 if (typeof attr !== typeof undefined && attr !== false) {
-    			 $(this).removeAttr("checked");	    
-    		 } else {
-    			 $(this).attr("checked", "");
-    		 }
-    	 });
-    	 
-    	 $('#btn-edit').on('click', function(){
-    		 var attr = $("#statusUser").attr('checked');
-    		 var enable = 0;
-    		 if (typeof attr !== typeof undefined && attr !== false) {
-    			 enable = 1;
-    		 }
-    		 var user = {
-    				id : $('#idEdit').val(),
-    				username : $('input[name="user.username"]').val(),
-    				email : $('input[name="user.email"]').val(),
-    				enabled : enable,
-    				roles : []
-    		 }
-    		 
-    		 $.each($('#listRoles').val(), function(index, val){
-    			 var role = {
-    				id : val
-    			 }
-    			 user.roles.push(role);
-    		 });
-    		
-			$.ajax({
-				 url : 'account/updaterole',
-				 type: 'PUT', 
-				 contentType: 'application/json',
-				 data : JSON.stringify(user),
-				 success: function(data){
-					 window.location = "account";
-				 }
-			 });
-    	 });
-    	 
-    	 $('#btn-add-account').on('click', function(){
-    		 $("#add-account-modal").modal();
-    	 });
-    	 //validation form
-    	 $('#btn-add-account-submit').click(function(){
-    		 var validate = $('#form-add-account').parsley();
-    		 
-        	 validate.validate();
-        	 if(validate.isValid()){
-        	 	//do next code..
-        	 	 var attr = $("#add-statusUser").attr('checked');
-	    		 var enable = 0;
-	    		 if (typeof attr !== typeof undefined && attr !== false) {
-	    			 enable = 1;
-	    		 }
-	    		 
-        		 var user = {
-         				username : $('input[name="add.user.username"]').val(),
-         				email : $('input[name="add.user.email"]').val(),
-         				password: $('input[name="add.user.password"]').val(),
-         				enabled : enable,
-         				roles : []
-         		 }
-         		 
-         		 $.each($('#add-listRoles').val(), function(index, val){
-         			 var role = {
-         				id : val
-         			 }
-         			 user.roles.push(role);
-         		 });
-	    		 
-        		 $.ajax({
-        			 url : "account/save/",
-        			 type: 'POST',
-        			 beforeSend: function(){
-        				 ajaxSetUp();
-        			 },
-        			 contentType: 'application/json',
-        			 data : JSON.stringify(user),
-        			 error: function(){
-        				 alert("create user failed!");
-        			 },
-        			 success: function(data){
-        				 window.location = "account";
-        			 }
-        		 });
-        	 } 
-    	 });
-    	 
-    	 $('#btn-add-role').on('click', function(){
-    		 $('#add-role-modal').modal();
-    	 });
-    	 
-    	 $('#btn-add-role-submit').on('click', function(){
-    		 var validate = $('#form-add-role').parsley();
-    		 if(validate.validate()){
-    			var role = {
-    				roleName : $('#role-name').val(),
+    	$('.btn-edit').on('click', function(){
+    		var id = $(this).attr('id');
+    		ajaxSetUp();
+    		$.ajax({
+    			type: 'GET',
+    			url: '${pageContext.request.contextPath}/myclass/get/'+ id,
+    			success: function(data){
+    				$('#title-class').val(data.title);
+    				$('#desc-class').val(data.description);
+    				$('#id-class').val(data.id);
     			}
+    		});
+    		$("#edit-class-modal").modal();
+    	});
+    	
+    	$('#btn-update-class-submit').click(function(){
+    		var myclass = {
+    			title : $('#title-class').val(),
+    			description : $('#desc-class').val(),
+    			id : $('#id-class').val()
+    		}
+    		
+    		ajaxSetUp();
+			$.ajax({
+				type: 'PUT',
+				contentType: 'application/json',
+				data : JSON.stringify(myclass),
+				url : '${pageContext.request.contextPath}/myclass/updclass',
+				success: function(data){
+					window.location = '${pageContext.request.contextPath}/myclass';
+				}
+			});
+    	});
+    	
+    	$('.btn-delete').on('click', function(){
+    		var id = $(this).attr('id');
+    		var conf = confirm('Are you sure delete data ?');
+    		if(conf == true){
+    			//do delete
     			ajaxSetUp();
     			$.ajax({
-    				url: 'account/addrole',
-    				type: 'POST',
-    				data: JSON.stringify(role),
-    				contentType: 'application/json',
+    				type: 'DELETE',
+    				url : '${pageContext.request.contextPath}/myclass/delete/'+id,
     				success: function(data){
-    					console.log(data);
+    					window.location = '${pageContext.request.contextPath}/myclass';
     				}
     			});
-    		 }
-    		 
-    	 });
-    	 
-    	//logout event button
-    	 $('#logout').click(function(event){
-    		 event.preventDefault();
-    		$('#logoutForm').submit();
-    	 });
+    		}
+    		
+    		return false;
+    	});
+    	
+    	function ajaxSetUp(){
+	   		 var token = $("meta[name='_csrf']").attr("content");
+	   		  var header = $("meta[name='_csrf_header']").attr("content");
+	   		  $(document).ajaxSend(function(e, xhr, options) {
+	   		    xhr.setRequestHeader(header, token);
+	   		  });
+	   	 }
     });
 </script>
 

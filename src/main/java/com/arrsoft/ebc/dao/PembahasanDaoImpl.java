@@ -21,7 +21,7 @@ public class PembahasanDaoImpl implements PembahasanDao {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
 		pembahasan.setMyClass(pembahasan.getMyClass());
-		session.save(pembahasan);
+		session.saveOrUpdate(pembahasan);
 		session.flush();
 	}
 
@@ -50,6 +50,26 @@ public class PembahasanDaoImpl implements PembahasanDao {
 			return null;
 		else 
 			return list;
+	}
+
+	public List<Pembahasan> getAll() {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		return session.createCriteria(Pembahasan.class).list();
+	}
+
+	public void delete(Pembahasan pembahasan) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		session.delete(pembahasan);
+		session.flush();
+	}
+
+	public Pembahasan getPembahasanById(String id) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		Pembahasan pembahasan= session.get(Pembahasan.class, id);
+		return pembahasan;
 	}
 	
 }

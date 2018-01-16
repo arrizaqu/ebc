@@ -30,7 +30,7 @@ public class InitDB {
 	
 	@PostConstruct
 	public void init(){
-		Role roleAdmin = new Role();
+		/*Role roleAdmin = new Role();
 		roleAdmin.setRoleName("ROLE_ADMIN");
 		Role roleStaff = new Role();
 		roleStaff.setRoleName("ROLE_STAFF");
@@ -66,7 +66,7 @@ public class InitDB {
 		rolesOpera.add(roleOpera);
 		opera.setRoles(rolesOpera);
 		
-		userService.save(opera);
+		userService.save(opera);*/
 	}
 	
 	public String encodePassword(String pass){

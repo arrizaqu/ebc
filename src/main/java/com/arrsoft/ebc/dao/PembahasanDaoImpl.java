@@ -21,7 +21,15 @@ public class PembahasanDaoImpl implements PembahasanDao {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
 		pembahasan.setMyClass(pembahasan.getMyClass());
-		session.saveOrUpdate(pembahasan);
+		session.save(pembahasan);
+		session.flush();
+	}
+	
+	public void update(Pembahasan pembahasan) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		pembahasan.setMyClass(pembahasan.getMyClass());
+		session.update(pembahasan);
 		session.flush();
 	}
 

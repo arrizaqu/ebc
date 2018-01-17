@@ -41,5 +41,16 @@ public class PembahasanService {
 		// TODO Auto-generated method stub
 		return pembahasanDao.getPembahasanById(id);
 	}
+	public void update(Pembahasan pembahasan) {
+		// TODO Auto-generated method stub
+		Pembahasan bahasan = pembahasanDao.getPembahasanById(pembahasan.getId());
+		bahasan.setSectionTitle(pembahasan.getSectionTitle());
+		bahasan.setBlogUrl(pembahasan.getBlogUrl());
+		bahasan.setContentText(pembahasan.getContentText());
+		bahasan.setFileUrl(pembahasan.getFileUrl());
+		bahasan.setVideosUrl(pembahasan.getVideosUrl());
+		bahasan.setCategory(pembahasan.getCategory());	
+		pembahasanDao.update(bahasan);
+	}
 
 }

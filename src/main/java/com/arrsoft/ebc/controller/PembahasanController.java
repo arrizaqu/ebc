@@ -90,7 +90,7 @@ public class PembahasanController {
 	@RequestMapping(value="/update", method=RequestMethod.PUT)
 	@ResponseStatus(HttpStatus.OK)
 	public void updatePembahasan(@RequestBody Pembahasan pembahasan){
-		pembahasanService.save(pembahasan);
+		pembahasanService.update(pembahasan);
 	}
 	
 	@RequestMapping(value="/delete/{id}", method=RequestMethod.DELETE)
